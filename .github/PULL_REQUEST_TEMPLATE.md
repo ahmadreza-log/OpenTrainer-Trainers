@@ -18,6 +18,7 @@
 - [ ] It doesn't bypass or evade anti-cheat
 - [ ] It doesn't bundle unrelated software
 - [ ] The license and hosting details are accurate
+- [ ] I release my metadata under CC0 1.0 and other changes under MIT, as described in CONTRIBUTING.md
 - [ ] I understand that a listing doesn't guarantee safety
 
 ## Maintainer review

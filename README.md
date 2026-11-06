@@ -61,6 +61,9 @@ npm run format:check
 
 ## License
 
-**This repository's license hasn't been decided yet**, so its scripts and metadata carry no reuse grant for now.
+| Content                                                                  | License                |
+| ------------------------------------------------------------------------ | ---------------------- |
+| Catalog metadata: `games/`, `manifests/`, `examples/`, generated catalog | [CC0 1.0](LICENSE-CC0) |
+| Everything else, including scripts, schemas, workflows and documentation | [MIT](LICENSE)         |
 
-Trainers listed here are third-party works under their own terms. Each manifest records its license, and no license from this repository applies to them.
+**Neither license covers trainers.** Trainers listed here are third-party works under their own terms, and each manifest records them. Names and trademarks mentioned in the metadata also stay with their owners.

@@ -51,6 +51,8 @@ Only `https://github.com/<owner>/<repo>/releases/download/<tag>/<file>` links ar
 
 Trainers aren't assumed to share a license. Set `license.name` and link to the terms in `license.url`. Add `license.spdxId` if there's a matching [SPDX identifier](https://spdx.org/licenses/). A trainer without a clear right to distribute it will be declined.
 
+By contributing, you agree that your metadata in `games/`, `manifests/` and `examples/` is released under [CC0 1.0](LICENSE-CC0), and everything else under the [MIT License](LICENSE). This covers your submission only, not the trainer it describes. Don't copy descriptions or other text you don't have the right to release this way.
+
 ## Updating a trainer
 
 Add a new entry to the `releases` array. Published entries are immutable: CI rejects deleting one or changing its URL, file name, hash or size.
