@@ -2,7 +2,7 @@
 
 The community catalog for [OpenTrainer](https://github.com/ahmadreza-log/OpenTrainer). It holds metadata that describes game trainers and where to download them.
 
-> **Status: the catalog has its first entries, and the validation tools work.** The OpenTrainer app that will read it doesn't exist yet. See the [evidence log](docs/catalog-evidence.md) for what was reviewed and what couldn't be verified.
+> **Status: the catalog has its first entries, and the validation tools work.** The OpenTrainer app reads this catalog, but it hasn't had a public release yet. See the [evidence log](docs/catalog-evidence.md) for what was reviewed and what couldn't be verified.
 
 This repository contains **no trainer binaries**. Files stay in GitHub Releases, published by their authors or with their permission.
 

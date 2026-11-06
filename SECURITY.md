@@ -4,7 +4,7 @@
 
 Report privately through GitHub: open this repository's **Security** tab and choose **Report a vulnerability**. Include the game ID, trainer ID, release version and your evidence.
 
-Maintainers respond by setting that release's `status` to `revoked`, and the next published catalog marks it as revoked. The OpenTrainer app isn't built yet. It's planned to refuse revoked releases, and offline copies would only learn about a revocation once they next update their catalog.
+Maintainers respond by setting that release's `status` to `revoked`, and the next published catalog marks it as revoked. The OpenTrainer app refuses revoked releases, but an offline copy only learns about a revocation once it next updates its catalog.
 
 This is a volunteer project, so we can't promise fixed response times. Reports of harmful trainers take priority over other work.
 
