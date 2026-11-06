@@ -9,7 +9,14 @@
 
 ## Rights
 
-<!-- Are you the author? If not, link to the license or permission that allows this listing. -->
+<!-- See "Licensing evidence" in CONTRIBUTING.md. -->
+
+- **Are you the author?**
+- **License at the release tag:**
+- **Why this account is the real author:**
+- **Licenses of bundled dependencies:**
+- **Author's permission, if someone else hosts it:**
+- **Where the author names the supported game versions:**
 
 ## Checklist
 
@@ -29,4 +36,6 @@
 - [ ] For `hostedBy: author`, the account is really the trainer's author, not someone re-uploading it (CI only checks that the account owns the release)
 - [ ] For `hostedBy: permission`, the link was opened and shows the author's permission
 - [ ] The license link was opened and matches the license listed
+- [ ] Bundled dependency licenses were checked
+- [ ] The result, including anything unverified, was added to `docs/catalog-evidence.md`
 - [ ] Changes to scripts, schemas, workflows or dependencies were read line by line, because a passing check means little if the pull request changed the checks

@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "id": "god-hand-trainer",
+  "gameId": "god-hand",
+  "name": "God Hand Trainer",
+  "summary": "Trainer for the PS2 game God Hand running in the PCSX2 1.6.0 emulator. It edits memory and patches the emulator's recompiled code.",
+  "cheats": [
+    "God Mode",
+    "Gold",
+    "God Hand Meter",
+    "Player Speed",
+    "Unlock All Moves",
+    "Unlock All Roulettes",
+    "Double God Hand",
+    "Roulette Slots",
+    "Level Meter",
+    "Unlimited Keys",
+    "Walk Through Walls",
+    "Hitbox Large",
+    "Quick Move Relief",
+    "One Hit Kill",
+    "No Damage",
+    "Guard Breaker",
+    "Damage Type"
+  ],
+  "author": {
+    "name": "Sahid Afridi",
+    "github": "AFreoN"
+  },
+  "license": {
+    "name": "MIT License",
+    "spdxId": "MIT",
+    "url": "https://github.com/AFreoN/godhand-trainer/blob/v1.0.1/LICENSE"
+  },
+  "distribution": {
+    "hostedBy": "author"
+  },
+  "sourceCode": "https://github.com/AFreoN/godhand-trainer/tree/v1.0.1",
+  "attestations": {
+    "singlePlayerOnly": true,
+    "noAntiCheatBypass": true,
+    "noBundledSoftware": true
+  },
+  "releases": [
+    {
+      "version": "1.0.1",
+      "status": "active",
+      "publishedAt": "2026-05-07",
+      "format": "exe",
+      "requiresElevation": true,
+      "gameVersions": ["PS2, PCSX2 1.6.0 only (disc region unstated)"],
+      "download": {
+        "url": "https://github.com/AFreoN/godhand-trainer/releases/download/v1.0.1/GodHandTrainer.exe",
+        "fileName": "GodHandTrainer.exe",
+        "sha256": "1130423636ae7142e1cfb34a9e09c7ba331043b95ef978c47b7674eac1c77295",
+        "sizeBytes": 51681149
+      }
+    }
+  ]
+}
