@@ -2,7 +2,7 @@
 
 The community catalog for [OpenTrainer](https://github.com/ahmadreza-log/OpenTrainer). It holds metadata that describes game trainers and where to download them.
 
-> **Status: the validation tools work, but the catalog is empty.** The OpenTrainer app that will read it doesn't exist yet.
+> **Status: the catalog has its first entries, and the validation tools work.** The OpenTrainer app that will read it doesn't exist yet. See the [evidence log](docs/catalog-evidence.md) for what was reviewed and what couldn't be verified.
 
 This repository contains **no trainer binaries**. Files stay in GitHub Releases, published by their authors or with their permission.
 
@@ -14,13 +14,14 @@ Trainers are for single-player and offline gameplay. Anti-cheat bypasses and com
 
 ## Layout
 
-| Path                                    | Purpose                                           |
-| --------------------------------------- | ------------------------------------------------- |
-| `games/<game-id>.json`                  | One record per game                               |
-| `manifests/<game-id>/<trainer-id>.json` | One manifest per trainer, listing its releases    |
-| `schemas/`                              | JSON Schemas for games, manifests and the catalog |
-| `scripts/`                              | Validation, catalog build and download checks     |
-| `examples/`                             | Fictional fixtures, never published               |
+| Path                                    | Purpose                                            |
+| --------------------------------------- | -------------------------------------------------- |
+| `games/<game-id>.json`                  | One record per game                                |
+| `manifests/<game-id>/<trainer-id>.json` | One manifest per trainer, listing its releases     |
+| `schemas/`                              | JSON Schemas for games, manifests and the catalog  |
+| `scripts/`                              | Validation, catalog build and download checks      |
+| `examples/`                             | Fictional fixtures, never published                |
+| `docs/catalog-evidence.md`              | Review evidence for accepted and rejected trainers |
 
 ## The catalog
 

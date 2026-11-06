@@ -36,7 +36,11 @@ Archives and DLL plugins aren't supported yet.
    npm run validate
    ```
 
-6. **Open a pull request** and fill in the template.
+6. **Open a pull request** and fill in the template, including the licensing evidence described below.
+
+## Game versions
+
+`gameVersions` must name versions the author says are supported, such as `1.2.0` or `0.80.34.0 (Xbox / Microsoft Store)`. Use `any` only if the author says it works on every version. If the author doesn't name a version, ask them to. Don't guess from your own testing alone or leave a vague label, because such a submission will be declined.
 
 ## Hosting
 
@@ -50,6 +54,20 @@ Only `https://github.com/<owner>/<repo>/releases/download/<tag>/<file>` links ar
 ## Licenses
 
 Trainers aren't assumed to share a license. Set `license.name` and link to the terms in `license.url`. Add `license.spdxId` if there's a single matching [SPDX identifier](https://spdx.org/licenses/). CI rejects unknown identifiers. A trainer without a clear right to distribute it will be declined.
+
+### Licensing evidence
+
+Being publicly downloadable doesn't mean a trainer can be listed. Include this in your pull request:
+
+| Evidence                              | What to provide                                                                                            |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| License                               | A link to the license at the release's tag, not just the default branch.                                   |
+| Authorship                            | Why the release account is the real author, such as matching commit history and license holder.            |
+| Bundled dependencies                  | The licenses of anything compiled into the executable. An MIT repository can still ship a copyleft binary. |
+| Permission, if hosted by someone else | A public link where the author grants permission. A private message isn't enough.                          |
+| Source, if available                  | A link to the source at the release's tag, and how the file was built if you know.                         |
+
+Maintainers record what they found in the [evidence log](docs/catalog-evidence.md), including anything they couldn't verify.
 
 By contributing, you agree that your metadata in `games/`, `manifests/` and `examples/` is released under [CC0 1.0](LICENSE-CC0), and everything else under the [MIT License](LICENSE). This covers your submission only, not the trainer it describes. Don't copy descriptions or other text you don't have the right to release this way.
 
