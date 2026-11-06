@@ -1,11 +1,13 @@
 import { createHash } from "node:crypto";
 import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { createRequire } from "node:module";
 import { basename, dirname, extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import Ajv2020 from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
+const spdxIds = new Set(createRequire(import.meta.url)("spdx-license-ids"));
 
 const BINARY_EXTENSIONS = new Set([
   ".exe",
@@ -102,8 +104,19 @@ export function validateData(games, trainers) {
     gameIds.add(data.id);
   }
 
+  const revokedHashes = new Set(
+    trainers.flatMap(({ data }) =>
+      (Array.isArray(data.releases) ? data.releases : [])
+        .filter((release) => release.status === "revoked")
+        .map((release) => release.download?.sha256),
+    ),
+  );
+
   for (const { path, data } of trainers) {
     errors.push(...schemaErrors(validateManifestSchema, data, path));
+    if (data.license?.spdxId && !spdxIds.has(data.license.spdxId)) {
+      errors.push(`${path}: unknown SPDX ID "${data.license.spdxId}"`);
+    }
     if (`manifests/${data.gameId}/${data.id}.json` !== path) {
       errors.push(
         `${path}: file must be manifests/${data.gameId}/${data.id}.json`,
@@ -121,6 +134,14 @@ export function validateData(games, trainers) {
     }
 
     for (const release of releases) {
+      if (
+        release.status !== "revoked" &&
+        revokedHashes.has(release.download?.sha256)
+      ) {
+        errors.push(
+          `${path}: release ${release.version}: this file was revoked and can't be listed again`,
+        );
+      }
       const gameVersions = release.gameVersions ?? [];
       if (gameVersions.includes("any") && gameVersions.length > 1) {
         errors.push(
@@ -157,6 +178,16 @@ export function checkImmutability(previous, current, path) {
         `${path}: release ${before.version} was removed; revoke it instead`,
       );
       continue;
+    }
+    if (before.status === "revoked" && after.status !== "revoked") {
+      errors.push(
+        `${path}: release ${before.version}: revocation can't be undone`,
+      );
+    }
+    if (before.requiresElevation && !after.requiresElevation) {
+      errors.push(
+        `${path}: release ${before.version}: requiresElevation can't be turned off`,
+      );
     }
     for (const field of ["url", "fileName", "sha256", "sizeBytes"]) {
       if (before.download[field] !== after.download?.[field]) {
