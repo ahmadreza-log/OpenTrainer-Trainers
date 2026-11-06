@@ -119,6 +119,53 @@ test("published releases are immutable", () => {
   assert.deepEqual(checkImmutability(trainer.data, revoked, "m"), []);
 });
 
+test("revocation can't be undone", () => {
+  const revoked = structuredClone(trainer.data);
+  revoked.releases[0].status = "revoked";
+  revoked.releases[0].statusReason = "Unsafe.";
+  assert.match(
+    checkImmutability(revoked, trainer.data, "m")[0],
+    /can't be undone/,
+  );
+});
+
+test("a revoked file can't be listed again", () => {
+  const sameManifest = errorsWith((m) => {
+    m.releases[0].status = "revoked";
+    m.releases[0].statusReason = "Unsafe.";
+    m.releases[1].status = "active";
+    delete m.releases[1].statusReason;
+    m.releases[1].download.sha256 = m.releases[0].download.sha256;
+  });
+  assert.ok(sameManifest.some((e) => e.includes("listed again")));
+
+  const revoked = structuredClone(trainer);
+  revoked.data.releases[0].status = "revoked";
+  revoked.data.releases[0].statusReason = "Unsafe.";
+  const elsewhere = structuredClone(trainer);
+  elsewhere.path = "manifests/example-game/other-trainer.json";
+  elsewhere.data.id = "other-trainer";
+  const errors = validateData([game], [revoked, elsewhere]);
+  assert.ok(
+    errors.some((e) => e.includes("other-trainer.json: release 1.1.0")),
+  );
+});
+
+test("requiresElevation can only be raised on a published release", () => {
+  const elevated = structuredClone(trainer.data);
+  elevated.releases[0].requiresElevation = true;
+  assert.deepEqual(checkImmutability(trainer.data, elevated, "m"), []);
+  assert.match(
+    checkImmutability(elevated, trainer.data, "m")[0],
+    /requiresElevation/,
+  );
+});
+
+test("rejects an unknown SPDX ID", () => {
+  const errors = errorsWith((m) => (m.license.spdxId = "NOT-A-LICENSE"));
+  assert.ok(errors.some((e) => e.includes("unknown SPDX ID")));
+});
+
 test("rejects binaries in the repository", () => {
   const dir = mkdtempSync(join(tmpdir(), "opentrainer-"));
   try {

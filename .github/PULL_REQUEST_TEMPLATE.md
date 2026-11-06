@@ -1,3 +1,5 @@
+<!-- Tooling or documentation change? Replace the Submission, Rights and Checklist sections with a summary of what changed and why. -->
+
 ## Submission
 
 - **Game:**
@@ -24,5 +26,7 @@
 ## Maintainer review
 
 - [ ] Author and release page look legitimate
-- [ ] License or permission evidence is sufficient
-- [ ] Changes to scripts, schemas or workflows were read line by line
+- [ ] For `hostedBy: author`, the account is really the trainer's author, not someone re-uploading it (CI only checks that the account owns the release)
+- [ ] For `hostedBy: permission`, the link was opened and shows the author's permission
+- [ ] The license link was opened and matches the license listed
+- [ ] Changes to scripts, schemas, workflows or dependencies were read line by line, because a passing check means little if the pull request changed the checks

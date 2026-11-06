@@ -49,13 +49,15 @@ Only `https://github.com/<owner>/<repo>/releases/download/<tag>/<file>` links ar
 
 ## Licenses
 
-Trainers aren't assumed to share a license. Set `license.name` and link to the terms in `license.url`. Add `license.spdxId` if there's a matching [SPDX identifier](https://spdx.org/licenses/). A trainer without a clear right to distribute it will be declined.
+Trainers aren't assumed to share a license. Set `license.name` and link to the terms in `license.url`. Add `license.spdxId` if there's a single matching [SPDX identifier](https://spdx.org/licenses/). CI rejects unknown identifiers. A trainer without a clear right to distribute it will be declined.
 
 By contributing, you agree that your metadata in `games/`, `manifests/` and `examples/` is released under [CC0 1.0](LICENSE-CC0), and everything else under the [MIT License](LICENSE). This covers your submission only, not the trainer it describes. Don't copy descriptions or other text you don't have the right to release this way.
 
 ## Updating a trainer
 
-Add a new entry to the `releases` array. Published entries are immutable: CI rejects deleting one or changing its URL, file name, hash or size.
+Add a new entry to the `releases` array. Published entries are immutable: CI rejects deleting one, changing its URL, file name, hash or size, or turning off `requiresElevation`.
+
+Revocation is permanent. CI rejects changing a revoked release back, and listing the same file again anywhere in the catalog. Reversing a mistaken revocation needs a maintainer to deliberately override the checks.
 
 To withdraw a release, change its `status` and add a `statusReason`:
 
@@ -73,11 +75,12 @@ To withdraw a release, change its `status` and add a `statusReason`:
 - No binaries in the repository
 - The linked file's size and SHA-256 hash, without ever running it
 - That published releases haven't changed
+- That an author-hosted release belongs to the GitHub account listed, which doesn't prove that account wrote the trainer
 
 **Maintainers check:**
 
-- Whether the metadata looks accurate and the author is identifiable
-- License and permission evidence
+- Whether the metadata looks accurate and the listed author is the real author
+- License and permission evidence, by opening the links
 - The single-player and anti-cheat rules
 - Any changes to scripts, schemas or workflows
 
