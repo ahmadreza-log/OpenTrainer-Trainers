@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a malicious or compromised trainer
+    url: https://github.com/ahmadreza-log/OpenTrainer-Trainers/security/advisories/new
+    about: Report suspected malware privately so maintainers can revoke it.
+  - name: Application problems
+    url: https://github.com/ahmadreza-log/OpenTrainer/issues/new/choose
+    about: Bugs and feature requests for the app belong in the opentrainer repository.

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:opentrainer:schema:game:1",
+  "title": "OpenTrainer game record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "name"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "maxLength": 80
+    },
+    "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "storeIds": {
+      "description": "Identifiers on game stores, used to match installed games.",
+      "type": "object",
+      "additionalProperties": false,
+      "minProperties": 1,
+      "properties": {
+        "steam": { "type": "integer", "minimum": 1 },
+        "gog": { "type": "integer", "minimum": 1 },
+        "epic": { "type": "string", "minLength": 1, "maxLength": 120 }
+      }
+    }
+  }
+}

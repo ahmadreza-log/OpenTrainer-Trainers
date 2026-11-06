@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-06T10:25:18.185Z",
+  "commit": null,
+  "games": [
+    {
+      "schemaVersion": 1,
+      "id": "example-game",
+      "name": "Example Game",
+      "storeIds": {
+        "steam": 1
+      }
+    }
+  ],
+  "trainers": [
+    {
+      "schemaVersion": 1,
+      "id": "example-trainer",
+      "gameId": "example-game",
+      "name": "Example Trainer",
+      "summary": "A fictional entry that shows the manifest format.",
+      "cheats": ["Infinite health", "Infinite ammo"],
+      "author": {
+        "name": "Example Author",
+        "github": "example-author"
+      },
+      "license": {
+        "name": "MIT License",
+        "spdxId": "MIT",
+        "url": "https://github.com/example-author/example-trainer/blob/main/LICENSE"
+      },
+      "distribution": {
+        "hostedBy": "author"
+      },
+      "sourceCode": "https://github.com/example-author/example-trainer",
+      "attestations": {
+        "singlePlayerOnly": true,
+        "noAntiCheatBypass": true,
+        "noBundledSoftware": true
+      },
+      "releases": [
+        {
+          "version": "1.1.0",
+          "status": "active",
+          "publishedAt": "2026-10-01",
+          "format": "exe",
+          "requiresElevation": false,
+          "gameVersions": ["1.2.0", "1.2.1"],
+          "download": {
+            "url": "https://github.com/example-author/example-trainer/releases/download/v1.1.0/ExampleTrainer.exe",
+            "fileName": "ExampleTrainer.exe",
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "sizeBytes": 1048576
+          }
+        },
+        {
+          "version": "1.0.0",
+          "status": "deprecated",
+          "statusReason": "Replaced by 1.1.0.",
+          "publishedAt": "2026-08-15",
+          "format": "exe",
+          "requiresElevation": false,
+          "gameVersions": ["1.1.0"],
+          "download": {
+            "url": "https://github.com/example-author/example-trainer/releases/download/v1.0.0/ExampleTrainer.exe",
+            "fileName": "ExampleTrainer.exe",
+            "sha256": "2c26b46b68ffc68ff99b453c1d30413413422d706483bfa0f98a5e886266e7ae",
+            "sizeBytes": 1000000
+          }
+        }
+      ]
+    }
+  ]
+}

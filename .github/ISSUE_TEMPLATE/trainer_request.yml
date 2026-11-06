@@ -1,0 +1,21 @@
+name: Trainer request
+description: Ask the community to list a trainer for a game.
+labels: ["trainer-request"]
+body:
+  - type: input
+    id: game
+    attributes:
+      label: Game name
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: Existing trainer's GitHub Release, if you know of one
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Project scope
+      options:
+        - label: This is for single-player or offline gameplay and doesn't involve bypassing anti-cheat
+          required: true

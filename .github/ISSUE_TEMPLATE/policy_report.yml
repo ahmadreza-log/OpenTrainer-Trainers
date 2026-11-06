@@ -1,0 +1,29 @@
+name: Policy or license report
+description: Report a listing that breaks the rules, or ask for your work to be removed. Report suspected malware privately instead.
+labels: ["policy"]
+body:
+  - type: input
+    id: trainer
+    attributes:
+      label: Game and trainer ID
+      placeholder: example-game / example-trainer
+    validations:
+      required: true
+  - type: dropdown
+    id: reason
+    attributes:
+      label: Reason
+      options:
+        - I'm the author and want it removed
+        - License or permission problem
+        - Targets multiplayer or bypasses anti-cheat
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details and evidence
+      description: This issue is public, so don't include private information.
+    validations:
+      required: true

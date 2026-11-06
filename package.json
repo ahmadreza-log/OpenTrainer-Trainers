@@ -1,0 +1,17 @@
+{
+  "name": "opentrainer-trainers",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "build:catalog": "node scripts/build-catalog.mjs",
+    "test": "node --test scripts/catalog.test.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "prettier": "^3.9.10"
+  }
+}

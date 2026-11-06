@@ -1,0 +1,28 @@
+# Dependencies and generated catalog
+node_modules/
+dist/
+
+# Trainer binaries must never enter Git history
+*.exe
+*.dll
+*.msi
+*.zip
+*.7z
+*.rar
+*.tar
+*.gz
+
+# Secrets
+.env
+.env.*
+*.key
+*.pem
+*.pfx
+
+# Logs and editor files
+*.log
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+.DS_Store

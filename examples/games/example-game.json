@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "id": "example-game",
+  "name": "Example Game",
+  "storeIds": {
+    "steam": 1
+  }
+}

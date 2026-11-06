@@ -1,0 +1,30 @@
+name: Broken trainer
+description: A listed trainer no longer works or its catalog details are wrong.
+labels: ["broken-trainer"]
+body:
+  - type: input
+    id: trainer
+    attributes:
+      label: Game and trainer ID
+      placeholder: example-game / example-trainer
+    validations:
+      required: true
+  - type: input
+    id: trainer-version
+    attributes:
+      label: Trainer release version
+    validations:
+      required: true
+  - type: input
+    id: game-version
+    attributes:
+      label: Game version and store
+      placeholder: 1.2.0, Steam
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What's wrong?
+    validations:
+      required: true

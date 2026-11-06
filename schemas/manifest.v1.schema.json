@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:opentrainer:schema:manifest:1",
+  "title": "OpenTrainer trainer manifest",
+  "description": "Describes one third-party trainer and its releases. A valid manifest doesn't mean the trainer is safe.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "gameId",
+    "name",
+    "summary",
+    "author",
+    "license",
+    "distribution",
+    "attestations",
+    "releases"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "$ref": "#/$defs/slug" },
+    "gameId": { "$ref": "#/$defs/slug" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "summary": { "type": "string", "minLength": 1, "maxLength": 300 },
+    "cheats": {
+      "description": "Names of the cheats offered, for display.",
+      "type": "array",
+      "uniqueItems": true,
+      "maxItems": 100,
+      "items": { "type": "string", "minLength": 1, "maxLength": 80 }
+    },
+    "author": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "github": {
+          "description": "The author's GitHub account. Required when hostedBy is author.",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$"
+        },
+        "url": { "$ref": "#/$defs/httpsUrl" }
+      }
+    },
+    "license": {
+      "description": "The trainer's own terms. Trainers don't share one license.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "url"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "spdxId": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "url": { "$ref": "#/$defs/httpsUrl" }
+      }
+    },
+    "distribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["hostedBy"],
+      "properties": {
+        "hostedBy": { "enum": ["author", "permission"] },
+        "permissionUrl": { "$ref": "#/$defs/httpsUrl" }
+      },
+      "if": { "properties": { "hostedBy": { "const": "permission" } } },
+      "then": { "required": ["permissionUrl"] }
+    },
+    "sourceCode": { "$ref": "#/$defs/httpsUrl" },
+    "attestations": {
+      "description": "The submitter's statements. These are policy declarations and aren't technically enforced.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "singlePlayerOnly",
+        "noAntiCheatBypass",
+        "noBundledSoftware"
+      ],
+      "properties": {
+        "singlePlayerOnly": { "const": true },
+        "noAntiCheatBypass": { "const": true },
+        "noBundledSoftware": { "const": true }
+      }
+    },
+    "releases": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/release" }
+    }
+  },
+  "$defs": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "maxLength": 80
+    },
+    "httpsUrl": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://",
+      "maxLength": 500
+    },
+    "release": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "version",
+        "status",
+        "publishedAt",
+        "format",
+        "requiresElevation",
+        "gameVersions",
+        "download"
+      ],
+      "properties": {
+        "version": {
+          "description": "The author's version label. Not required to be SemVer.",
+          "type": "string",
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._+-]*$",
+          "maxLength": 50
+        },
+        "status": { "enum": ["active", "deprecated", "revoked"] },
+        "statusReason": { "type": "string", "minLength": 1, "maxLength": 300 },
+        "publishedAt": { "type": "string", "format": "date" },
+        "format": {
+          "description": "Schema v1 supports EXE only. DLL plugins need schema v2.",
+          "const": "exe"
+        },
+        "requiresElevation": {
+          "description": "Whether the trainer needs administrator rights.",
+          "type": "boolean"
+        },
+        "gameVersions": {
+          "description": "Exact game versions this release supports, or the single value \"any\".",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 50 }
+        },
+        "download": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["url", "fileName", "sha256", "sizeBytes"],
+          "properties": {
+            "url": {
+              "description": "A GitHub Release asset. Dot segments are rejected so the link can't resolve elsewhere.",
+              "type": "string",
+              "maxLength": 500,
+              "pattern": "^https://github\\.com/[A-Za-z0-9-]+/(?!\\.{1,2}/)[A-Za-z0-9._-]+/releases/download/(?!\\.{1,2}/)[^/?#\\\\]+/(?!\\.{1,2}$)[^/?#\\\\]+$"
+            },
+            "fileName": {
+              "description": "A display name only. Clients must not use it as a file path.",
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9 ._()-]*\\.exe$",
+              "maxLength": 120
+            },
+            "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+            "sizeBytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 524288000
+            }
+          }
+        }
+      },
+      "if": {
+        "properties": { "status": { "enum": ["deprecated", "revoked"] } }
+      },
+      "then": { "required": ["statusReason"] }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+name: Publish catalog
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - games/**
+      - manifests/**
+      - schemas/**
+      - scripts/**
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Never let an older run overwrite a newer catalog, which could undo a revocation.
+concurrency:
+  group: publish-catalog
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: npm
+      - run: npm ci
+      - run: npm run validate
+      - run: npm run build:catalog
+      - name: Upload catalog
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view catalog >/dev/null 2>&1 || gh release create catalog --title "Catalog" --notes "Generated catalog. Don't edit by hand." --latest=false
+          gh release upload catalog dist/catalog.v1.json --clobber
